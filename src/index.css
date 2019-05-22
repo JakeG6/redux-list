@@ -12,3 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.text-strike {
+  text-decoration: line-through;
+}
+
+li:hover {
+  cursor: pointer;
+}
