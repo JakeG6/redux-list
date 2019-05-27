@@ -5,14 +5,41 @@ body {
   
 }
 
+
+
+.deleteIcon:hover { 
+  cursor: pointer;
+  color: red;
+}
+
 h2 {
   text-align: center;
 }
 
-
-
 .item {
   font-family: 'Mandali';
+}
+
+.list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+
+.show-me {
+  display: none;
+}
+
+.list-item:hover .show-me {
+  display: flex;
+}
+
+p {
+  font-weight: bold;
+  font-size: 20px;
+ 
 }
 
 .item:hover {

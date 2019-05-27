@@ -13,12 +13,13 @@ import { SHOW_COMPLETED } from './redux/actions.js'
 import { SHOW_UNCOMPLETED } from './redux/actions.js'
 
 import { toggleComplete } from "./redux/actions"
+import { deleteItem } from "./redux/actions"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faTrash)
+library.add(faTimes)
 
 const mapStateToProps = state => {
     return { 
@@ -58,15 +59,30 @@ const ConnectedList = ({ items, filter, dispatch }) => {
                     <Col>
                         <ListGroup variant="flush">
                             {filteredItems.map(item => (
-                                <ListGroup.Item  
-                                    key={item.id} 
-                                    variant="dark"
-                                    onClick={ () => dispatch(toggleComplete(item)) } 
-                                    className={(item.completed === true ? 'text-strike item' : 'item') }
-                                >
-                                    {item.title}
-                                    
-                                </ListGroup.Item>
+                                <div key={item.id}  className="list-item">
+                                    <p 
+                                        onClick={ () => dispatch(toggleComplete(item)) } 
+                                        className={(item.completed === true ? 'text-strike item' : 'item') }
+                                    >   
+                                        { item.title }
+                                    </p>
+                                    <div className="show-me" >
+                                        <FontAwesomeIcon 
+                                            icon="times"
+                                            onClick={ () => dispatch(deleteItem(item)) }
+                                            className= "deleteIcon fa-2x"
+                                        />
+                                    </div>
+                                    {/* <ListGroup.Item  
+                                        
+                                        variant="dark"
+                                        onClick={ () => dispatch(toggleComplete(item)) } 
+                                        className={(item.completed === true ? 'text-strike item' : 'item') }
+                                    >
+                                        {item.title}        
+                                    </ListGroup.Item>  
+                                               */}
+                                </div>                        
                             ))}
                         </ListGroup>
                     </Col>
