@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner';
 import { connect } from "react-redux";
 import uuidv1 from "uuid/v1";
 
@@ -10,14 +14,11 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class ListForm extends Component {
+class ConnectedForm extends Component {
+    
     constructor() {
         super()
-
-        this.state = {
-            title: "",
-        }
-
+        this.state = { title: "", }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -38,28 +39,33 @@ class ListForm extends Component {
     render() {
         const { title } = this.state;
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                    <label >Item</label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={this.handleChange}
-                    />
-                    </div>
-                    <button type="submit" >
-                    SAVE
-                    </button>
-                </form>
+            <div className="panel">
+                <h2 className="poiret-one">Add to the List</h2>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group>
+                        <Form.Control
+                            placeholder="enter an item"
+                            type="text"
+                            id="title"
+                            value={title}
+                            onChange={this.handleChange}
+                        />
+                    </Form.Group>
+                    <Button 
+                        variant="primary" 
+                        type="submit" 
+                        disabled={title.trim() === "" ? true : false}
+                        block
+                    >
+                    Add Item
+                    </Button>
+                </Form>
             </div>
         );
     }
 
-
 }
 
-const Form = connect(null, mapDispatchToProps)(ListForm);
+const ListForm = connect(null, mapDispatchToProps)(ConnectedForm);
 
-export default Form
+export default ListForm

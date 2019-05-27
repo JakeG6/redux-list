@@ -1,12 +1,24 @@
 import React from 'react';
+import Filter from './Filter';
 import { connect } from "react-redux";
+
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import ListGroup from 'react-bootstrap/ListGroup'
+
 
 import { SHOW_ALL } from './redux/actions.js'
 import { SHOW_COMPLETED } from './redux/actions.js'
 import { SHOW_UNCOMPLETED } from './redux/actions.js'
 
-
 import { toggleComplete } from "./redux/actions"
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faTrash)
 
 const mapStateToProps = state => {
     return { 
@@ -32,15 +44,34 @@ const ConnectedList = ({ items, filter, dispatch }) => {
     }
 
     return (
-        <div>
-            <h2>The list</h2>
-            <ul>
-                {filteredItems.map(item => (
-                <li key={item.id} onClick={ () => dispatch(toggleComplete(item)) } className={item.completed === true ? 'text-strike' : null}>
-                    {item.title}
-                </li>
-                ))}
-            </ul>
+        <div className="panel">
+            <Container>
+                <Row>
+                    <Col>
+                        <h2 className="poiret-one">The List</h2>
+                    </Col>
+                    <Col>
+                        <Filter />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <ListGroup variant="flush">
+                            {filteredItems.map(item => (
+                                <ListGroup.Item  
+                                    key={item.id} 
+                                    variant="dark"
+                                    onClick={ () => dispatch(toggleComplete(item)) } 
+                                    className={(item.completed === true ? 'text-strike item' : 'item') }
+                                >
+                                    {item.title}
+                                    
+                                </ListGroup.Item>
+                            ))}
+                        </ListGroup>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 
